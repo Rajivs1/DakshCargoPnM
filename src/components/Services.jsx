@@ -64,7 +64,8 @@ function Services() {
 
   const headerStyle = {
     textAlign: 'center',
-    marginBottom: isMobile ? '3rem' : '4rem'
+    marginBottom: isMobile ? '3rem' : '4rem',
+    animation: 'fadeInDown 0.8s ease-out'
   }
 
   const badgeStyle = {
@@ -73,14 +74,6 @@ function Services() {
     fontSize: '0.875rem',
     textTransform: 'uppercase',
     letterSpacing: '0.1em'
-  }
-
-  const h2Style = {
-    fontSize: isMobile ? '2rem' : '3.5rem',
-    fontWeight: '800',
-    color: colors.text,
-    margin: '1rem 0',
-    transition: 'color 0.3s'
   }
 
   const subtitleStyle = {
@@ -102,13 +95,20 @@ function Services() {
     borderRadius: '25px',
     padding: isMobile ? '2rem' : '2.5rem',
     border: `2px solid ${colors.border}`,
-    transition: 'all 0.3s',
-    cursor: 'pointer'
+    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+    cursor: 'pointer',
+    animation: 'fadeInUp 0.6s ease-out backwards',
+    position: 'relative',
+    overflow: 'hidden',
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.08)'
   }
 
   const iconStyle = {
     fontSize: isMobile ? '3rem' : '4rem',
-    marginBottom: '1.5rem'
+    marginBottom: '1.5rem',
+    display: 'inline-block',
+    transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+    filter: 'drop-shadow(0 4px 12px rgba(255, 107, 53, 0.3))'
   }
 
   const titleStyle = {
@@ -155,7 +155,21 @@ function Services() {
     display: 'flex',
     alignItems: 'center',
     gap: '0.5rem',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    transition: 'all 0.3s ease'
+  }
+
+  const h2Style = {
+    fontSize: isMobile ? '2rem' : '3.5rem',
+    fontWeight: '800',
+    color: colors.text,
+    margin: '1rem 0',
+    transition: 'color 0.3s',
+    background: 'linear-gradient(135deg, ' + colors.text + ' 0%, ' + colors.text + ' 50%, #FF6B35 100%)',
+    backgroundSize: '200% auto',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text'
   }
 
   return (
@@ -173,19 +187,29 @@ function Services() {
           {services.map((service, index) => (
             <div 
               key={index}
-              style={cardStyle}
+              style={{...cardStyle, animationDelay: `${index * 0.1}s`}}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-10px)'
-                e.currentTarget.style.boxShadow = '0 20px 60px rgba(255, 107, 53, 0.15)'
-                e.currentTarget.style.borderColor = '#FFD4C4'
+                e.currentTarget.style.transform = 'translateY(-15px) scale(1.03) rotateZ(1deg)'
+                e.currentTarget.style.boxShadow = '0 30px 90px rgba(255, 107, 53, 0.25)'
+                e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.5)'
+                const icon = e.currentTarget.querySelector('.service-icon')
+                if (icon) {
+                  icon.style.transform = 'scale(1.2) rotate(10deg)'
+                  icon.style.filter = 'drop-shadow(0 8px 20px rgba(255, 107, 53, 0.5))'
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
+                e.currentTarget.style.transform = 'translateY(0) scale(1) rotateZ(0deg)'
+                e.currentTarget.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.08)'
                 e.currentTarget.style.borderColor = colors.border
+                const icon = e.currentTarget.querySelector('.service-icon')
+                if (icon) {
+                  icon.style.transform = 'scale(1) rotate(0deg)'
+                  icon.style.filter = 'drop-shadow(0 4px 12px rgba(255, 107, 53, 0.3))'
+                }
               }}
             >
-              <div style={iconStyle}>{service.icon}</div>
+              <div className="service-icon" style={iconStyle}>{service.icon}</div>
               <h3 style={titleStyle}>{service.title}</h3>
               <p style={descStyle}>{service.description}</p>
               <ul style={featureListStyle}>

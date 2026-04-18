@@ -1,20 +1,13 @@
-import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { useResponsive } from '../hooks/useResponsive'
 
 function AboutPage() {
-  const [isMobile, setIsMobile] = useState(false)
+  const { isMobile, isTablet } = useResponsive()
   const { colors } = useTheme()
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   const sectionStyle = {
-    paddingTop: isMobile ? '100px' : '120px',
-    paddingBottom: isMobile ? '60px' : '80px',
+    paddingTop: isMobile ? '100px' : isTablet ? '110px' : '120px',
+    paddingBottom: isMobile ? '60px' : isTablet ? '70px' : '80px',
     background: colors.bg,
     minHeight: '100vh',
     transition: 'background 0.3s'
@@ -23,16 +16,16 @@ function AboutPage() {
   const containerStyle = {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: isMobile ? '0 1rem' : '0 1.5rem'
+    padding: isMobile ? '0 1rem' : isTablet ? '0 1.5rem' : '0 2rem'
   }
 
   const heroStyle = {
     textAlign: 'center',
-    marginBottom: isMobile ? '3rem' : '5rem'
+    marginBottom: isMobile ? '3rem' : isTablet ? '4rem' : '5rem'
   }
 
   const h1Style = {
-    fontSize: isMobile ? '2rem' : '4rem',
+    fontSize: isMobile ? '2rem' : isTablet ? '3rem' : '4rem',
     fontWeight: '800',
     color: colors.text,
     marginBottom: '1.5rem',
@@ -47,7 +40,7 @@ function AboutPage() {
   }
 
   const subtitleStyle = {
-    fontSize: isMobile ? '1rem' : '1.25rem',
+    fontSize: isMobile ? '1rem' : isTablet ? '1.125rem' : '1.25rem',
     color: colors.textSecondary,
     maxWidth: '800px',
     margin: '0 auto',
@@ -57,23 +50,23 @@ function AboutPage() {
 
   const contentGridStyle = {
     display: 'grid',
-    gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-    gap: isMobile ? '2rem' : '4rem',
-    marginBottom: isMobile ? '3rem' : '5rem',
+    gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr' : '1fr 1fr',
+    gap: isMobile ? '2rem' : isTablet ? '3rem' : '4rem',
+    marginBottom: isMobile ? '3rem' : isTablet ? '4rem' : '5rem',
     alignItems: 'center'
   }
 
   const imageBoxStyle = {
     background: colors.accentBg,
     borderRadius: '30px',
-    padding: isMobile ? '2rem' : '3rem',
+    padding: isMobile ? '2rem' : isTablet ? '2.5rem' : '3rem',
     textAlign: 'center',
-    fontSize: isMobile ? '5rem' : '8rem',
+    fontSize: isMobile ? '5rem' : isTablet ? '6rem' : '8rem',
     transition: 'background 0.3s'
   }
 
   const h2Style = {
-    fontSize: isMobile ? '1.75rem' : '2.5rem',
+    fontSize: isMobile ? '1.75rem' : isTablet ? '2rem' : '2.5rem',
     fontWeight: '700',
     color: colors.text,
     marginBottom: '1.5rem',
@@ -90,21 +83,21 @@ function AboutPage() {
 
   const statsGridStyle = {
     display: 'grid',
-    gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-    gap: isMobile ? '1rem' : '2rem',
-    marginBottom: isMobile ? '3rem' : '5rem'
+    gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+    gap: isMobile ? '1rem' : isTablet ? '1.5rem' : '2rem',
+    marginBottom: isMobile ? '3rem' : isTablet ? '4rem' : '5rem'
   }
 
   const statCardStyle = {
     background: colors.accentBg,
     borderRadius: '20px',
-    padding: isMobile ? '1.5rem' : '2rem',
+    padding: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '2rem',
     textAlign: 'center',
     transition: 'background 0.3s'
   }
 
   const statNumberStyle = {
-    fontSize: isMobile ? '2rem' : '3rem',
+    fontSize: isMobile ? '2rem' : isTablet ? '2.5rem' : '3rem',
     fontWeight: '800',
     background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
     WebkitBackgroundClip: 'text',
@@ -114,7 +107,7 @@ function AboutPage() {
   }
 
   const statLabelStyle = {
-    fontSize: isMobile ? '0.875rem' : '1rem',
+    fontSize: isMobile ? '0.875rem' : isTablet ? '0.9375rem' : '1rem',
     color: colors.textSecondary,
     fontWeight: '600',
     transition: 'color 0.3s'
@@ -122,25 +115,25 @@ function AboutPage() {
 
   const valuesGridStyle = {
     display: 'grid',
-    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-    gap: isMobile ? '1.5rem' : '2rem'
+    gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+    gap: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '2rem'
   }
 
   const valueCardStyle = {
     background: colors.cardBg,
     borderRadius: '20px',
-    padding: isMobile ? '2rem' : '2.5rem',
+    padding: isMobile ? '2rem' : isTablet ? '2.25rem' : '2.5rem',
     border: `2px solid ${colors.border}`,
     transition: 'all 0.3s'
   }
 
   const valueIconStyle = {
-    fontSize: isMobile ? '2.5rem' : '3rem',
+    fontSize: isMobile ? '2.5rem' : isTablet ? '2.75rem' : '3rem',
     marginBottom: '1rem'
   }
 
   const valueTitleStyle = {
-    fontSize: isMobile ? '1.25rem' : '1.5rem',
+    fontSize: isMobile ? '1.25rem' : isTablet ? '1.375rem' : '1.5rem',
     fontWeight: '700',
     color: colors.text,
     marginBottom: '1rem',
@@ -150,7 +143,7 @@ function AboutPage() {
   const valueDescStyle = {
     color: colors.textSecondary,
     lineHeight: '1.7',
-    fontSize: isMobile ? '0.875rem' : '1rem',
+    fontSize: isMobile ? '0.875rem' : isTablet ? '0.9375rem' : '1rem',
     transition: 'color 0.3s'
   }
 
@@ -200,9 +193,9 @@ function AboutPage() {
           </div>
         </div>
 
-        <div style={{textAlign: 'center', marginBottom: isMobile ? '2rem' : '3rem'}}>
+        <div style={{textAlign: 'center', marginBottom: isMobile ? '2rem' : isTablet ? '2.5rem' : '3rem'}}>
           <h2 style={h2Style}>Our Core Values</h2>
-          <p style={{...subtitleStyle, fontSize: isMobile ? '1rem' : '1.125rem'}}>
+          <p style={{...subtitleStyle, fontSize: isMobile ? '1rem' : isTablet ? '1.0625rem' : '1.125rem'}}>
             The principles that guide our work and define who we are
           </p>
         </div>

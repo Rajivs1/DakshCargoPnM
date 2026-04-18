@@ -4,6 +4,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import QuoteModal from './components/QuoteModal'
+import SplashScreen from './components/SplashScreen'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
 import AboutPage from './pages/AboutPage'
@@ -12,9 +13,17 @@ import './App.css'
 
 function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
+  const hasSeenSplash = sessionStorage.getItem('hasSeenSplash')
+  const [showSplash, setShowSplash] = useState(!hasSeenSplash)
+
+  const handleSplashComplete = () => {
+    sessionStorage.setItem('hasSeenSplash', 'true')
+    setShowSplash(false)
+  }
 
   return (
     <ThemeProvider>
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       <Router>
         <div className="min-h-screen">
           <Header onQuoteClick={() => setIsQuoteModalOpen(true)} />

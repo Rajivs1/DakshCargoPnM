@@ -21,10 +21,11 @@ function Header({ onQuoteClick }) {
     left: 0,
     right: 0,
     zIndex: 1000,
-    backgroundColor: isDark ? 'rgba(15, 23, 42, 0.98)' : 'rgba(255, 255, 255, 0.98)',
-    backdropFilter: 'blur(10px)',
-    boxShadow: isDark ? '0 1px 3px rgba(0,0,0,0.5)' : '0 1px 3px rgba(0,0,0,0.1)',
-    transition: 'all 0.3s'
+    backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+    backdropFilter: 'blur(20px)',
+    boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.5)' : '0 4px 20px rgba(0,0,0,0.08)',
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    borderBottom: `1px solid ${isDark ? 'rgba(255, 107, 53, 0.1)' : 'rgba(255, 107, 53, 0.05)'}`
   }
 
   const navStyle = {
@@ -43,11 +44,13 @@ function Header({ onQuoteClick }) {
   const logoStyle = {
     fontSize: isMobile ? '1.25rem' : '1.75rem',
     fontWeight: '700',
-    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FF6B35 100%)',
+    backgroundSize: '200% auto',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    animation: 'textShine 3s linear infinite'
   }
 
   const linkStyle = (isActive) => ({
@@ -71,8 +74,10 @@ function Header({ onQuoteClick }) {
     fontWeight: '600',
     fontSize: '1rem',
     cursor: 'pointer',
-    transition: 'all 0.3s',
-    boxShadow: '0 4px 15px rgba(255, 107, 53, 0.3)'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    boxShadow: '0 8px 25px rgba(255, 107, 53, 0.35)',
+    position: 'relative',
+    overflow: 'hidden'
   }
 
   const themeButtonStyle = {
@@ -87,7 +92,8 @@ function Header({ onQuoteClick }) {
     justifyContent: 'center',
     cursor: 'pointer',
     fontSize: '1.25rem',
-    transition: 'all 0.3s'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)'
   }
 
   const mobileMenuStyle = {
@@ -135,11 +141,13 @@ function Header({ onQuoteClick }) {
               onClick={toggleTheme}
               onMouseEnter={(e) => {
                 e.target.style.borderColor = '#FF6B35'
-                e.target.style.transform = 'scale(1.1)'
+                e.target.style.transform = 'rotate(180deg) scale(1.1)'
+                e.target.style.boxShadow = '0 8px 20px rgba(255, 107, 53, 0.3)'
               }}
               onMouseLeave={(e) => {
                 e.target.style.borderColor = colors.border
-                e.target.style.transform = 'scale(1)'
+                e.target.style.transform = 'rotate(0deg) scale(1)'
+                e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)'
               }}
             >
               {isDark ? '☀️' : '🌙'}
@@ -150,12 +158,12 @@ function Header({ onQuoteClick }) {
                 style={buttonStyle}
                 onClick={onQuoteClick}
                 onMouseEnter={(e) => {
-                  e.target.style.transform = 'scale(1.05)'
-                  e.target.style.boxShadow = '0 6px 20px rgba(255, 107, 53, 0.4)'
+                  e.target.style.transform = 'translateY(-2px) scale(1.05)'
+                  e.target.style.boxShadow = '0 12px 35px rgba(255, 107, 53, 0.5)'
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.transform = 'scale(1)'
-                  e.target.style.boxShadow = '0 4px 15px rgba(255, 107, 53, 0.3)'
+                  e.target.style.transform = 'translateY(0) scale(1)'
+                  e.target.style.boxShadow = '0 8px 25px rgba(255, 107, 53, 0.35)'
                 }}
               >
                 Get Quote

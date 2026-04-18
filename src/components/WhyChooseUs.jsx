@@ -58,7 +58,8 @@ function WhyChooseUs() {
 
   const headerStyle = {
     textAlign: 'center',
-    marginBottom: isMobile ? '3rem' : '4rem'
+    marginBottom: isMobile ? '3rem' : '4rem',
+    animation: 'fadeInDown 0.8s ease-out'
   }
 
   const badgeStyle = {
@@ -96,13 +97,20 @@ function WhyChooseUs() {
     background: colors.cardBg,
     borderRadius: '25px',
     padding: isMobile ? '2rem' : '2.5rem',
-    boxShadow: colors.shadow,
-    transition: 'all 0.3s'
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.08)',
+    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+    animation: 'fadeInUp 0.6s ease-out backwards',
+    border: '2px solid rgba(255, 107, 53, 0.1)',
+    position: 'relative',
+    overflow: 'hidden'
   }
 
   const iconStyle = {
     fontSize: isMobile ? '3rem' : '3.5rem',
-    marginBottom: '1.5rem'
+    marginBottom: '1.5rem',
+    display: 'inline-block',
+    transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+    filter: 'drop-shadow(0 4px 12px rgba(255, 107, 53, 0.3))'
   }
 
   const titleStyle = {
@@ -121,12 +129,17 @@ function WhyChooseUs() {
   }
 
   const ctaBoxStyle = {
-    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FF6B35 100%)',
+    backgroundSize: '200% 200%',
     borderRadius: '30px',
     padding: isMobile ? '3rem 1.5rem' : '4rem 2rem',
     textAlign: 'center',
     color: 'white',
-    boxShadow: '0 20px 60px rgba(255, 107, 53, 0.3)'
+    boxShadow: '0 25px 70px rgba(255, 107, 53, 0.4)',
+    animation: 'scaleIn 0.8s ease-out, gradientShift 5s ease infinite',
+    position: 'relative',
+    overflow: 'hidden',
+    border: '2px solid rgba(255, 255, 255, 0.2)'
   }
 
   const ctaTitleStyle = {
@@ -157,8 +170,10 @@ function WhyChooseUs() {
     fontWeight: '600',
     fontSize: isMobile ? '1rem' : '1.125rem',
     cursor: 'pointer',
-    transition: 'all 0.3s',
-    boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+    position: 'relative',
+    overflow: 'hidden'
   }
 
   const secondaryButtonStyle = {
@@ -170,7 +185,8 @@ function WhyChooseUs() {
     fontWeight: '600',
     fontSize: isMobile ? '1rem' : '1.125rem',
     cursor: 'pointer',
-    transition: 'all 0.3s'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    backdropFilter: 'blur(10px)'
   }
 
   return (
@@ -188,17 +204,29 @@ function WhyChooseUs() {
           {features.map((feature, index) => (
             <div 
               key={index}
-              style={cardStyle}
+              style={{...cardStyle, animationDelay: `${index * 0.1}s`}}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-10px)'
-                e.currentTarget.style.boxShadow = '0 20px 60px rgba(255, 107, 53, 0.15)'
+                e.currentTarget.style.transform = 'translateY(-12px) scale(1.03)'
+                e.currentTarget.style.boxShadow = '0 30px 80px rgba(255, 107, 53, 0.25)'
+                e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.4)'
+                const icon = e.currentTarget.querySelector('.feature-icon')
+                if (icon) {
+                  icon.style.transform = 'scale(1.3) rotate(15deg)'
+                  icon.style.filter = 'drop-shadow(0 8px 20px rgba(255, 107, 53, 0.6))'
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = colors.shadow
+                e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                e.currentTarget.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.08)'
+                e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.1)'
+                const icon = e.currentTarget.querySelector('.feature-icon')
+                if (icon) {
+                  icon.style.transform = 'scale(1) rotate(0deg)'
+                  icon.style.filter = 'drop-shadow(0 4px 12px rgba(255, 107, 53, 0.3))'
+                }
               }}
             >
-              <div style={iconStyle}>{feature.icon}</div>
+              <div className="feature-icon" style={iconStyle}>{feature.icon}</div>
               <h3 style={titleStyle}>{feature.title}</h3>
               <p style={descStyle}>{feature.description}</p>
             </div>
@@ -209,8 +237,34 @@ function WhyChooseUs() {
           <h3 style={ctaTitleStyle}>Ready to Make Your Move?</h3>
           <p style={ctaSubtitleStyle}>Get a free, no-obligation quote today</p>
           <div style={buttonContainerStyle}>
-            <button style={primaryButtonStyle}>Request Quote</button>
-            <button style={secondaryButtonStyle}>View Pricing</button>
+            <button 
+              style={primaryButtonStyle}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-3px) scale(1.05)'
+                e.target.style.boxShadow = '0 20px 50px rgba(0,0,0,0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0) scale(1)'
+                e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'
+              }}
+            >
+              Request Quote
+            </button>
+            <button 
+              style={secondaryButtonStyle}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.2)'
+                e.target.style.transform = 'translateY(-3px) scale(1.05)'
+                e.target.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent'
+                e.target.style.transform = 'translateY(0) scale(1)'
+                e.target.style.boxShadow = 'none'
+              }}
+            >
+              View Pricing
+            </button>
           </div>
         </div>
       </div>

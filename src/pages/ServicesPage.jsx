@@ -1,16 +1,9 @@
-import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { useResponsive } from '../hooks/useResponsive'
 
 function ServicesPage() {
-  const [isMobile, setIsMobile] = useState(false)
+  const { isMobile, isTablet } = useResponsive()
   const { colors } = useTheme()
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   const services = [
     {
@@ -100,8 +93,8 @@ function ServicesPage() {
   ]
 
   const sectionStyle = {
-    paddingTop: isMobile ? '100px' : '120px',
-    paddingBottom: isMobile ? '60px' : '80px',
+    paddingTop: isMobile ? '100px' : isTablet ? '110px' : '120px',
+    paddingBottom: isMobile ? '60px' : isTablet ? '70px' : '80px',
     background: colors.gradientBg,
     minHeight: '100vh',
     transition: 'background 0.3s'
@@ -110,17 +103,17 @@ function ServicesPage() {
   const containerStyle = {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: isMobile ? '0 1rem' : '0 1.5rem',
+    padding: isMobile ? '0 1rem' : isTablet ? '0 1.5rem' : '0 2rem',
     width: '100%'
   }
 
   const headerStyle = {
     textAlign: 'center',
-    marginBottom: isMobile ? '3rem' : '4rem'
+    marginBottom: isMobile ? '3rem' : isTablet ? '3.5rem' : '4rem'
   }
 
   const h1Style = {
-    fontSize: isMobile ? '2rem' : '4rem',
+    fontSize: isMobile ? '2rem' : isTablet ? '3rem' : '4rem',
     fontWeight: '800',
     color: colors.text,
     marginBottom: '1rem',
@@ -135,7 +128,7 @@ function ServicesPage() {
   }
 
   const subtitleStyle = {
-    fontSize: isMobile ? '1rem' : '1.25rem',
+    fontSize: isMobile ? '1rem' : isTablet ? '1.125rem' : '1.25rem',
     color: colors.textSecondary,
     maxWidth: '700px',
     margin: '0 auto',
@@ -144,26 +137,26 @@ function ServicesPage() {
 
   const gridStyle = {
     display: 'grid',
-    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-    gap: isMobile ? '1.5rem' : '2rem'
+    gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+    gap: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '2rem'
   }
 
   const cardStyle = {
     background: colors.cardBg,
     borderRadius: '25px',
-    padding: isMobile ? '2rem' : '2.5rem',
+    padding: isMobile ? '2rem' : isTablet ? '2.25rem' : '2.5rem',
     boxShadow: colors.shadow,
     transition: 'all 0.3s',
     border: '2px solid transparent'
   }
 
   const iconStyle = {
-    fontSize: isMobile ? '3rem' : '4rem',
+    fontSize: isMobile ? '3rem' : isTablet ? '3.5rem' : '4rem',
     marginBottom: '1.5rem'
   }
 
   const titleStyle = {
-    fontSize: isMobile ? '1.5rem' : '1.75rem',
+    fontSize: isMobile ? '1.5rem' : isTablet ? '1.625rem' : '1.75rem',
     fontWeight: '700',
     color: colors.text,
     marginBottom: '1rem',
@@ -174,7 +167,7 @@ function ServicesPage() {
     color: colors.textSecondary,
     lineHeight: '1.7',
     marginBottom: '1.5rem',
-    fontSize: isMobile ? '0.875rem' : '1rem',
+    fontSize: isMobile ? '0.875rem' : isTablet ? '0.9375rem' : '1rem',
     transition: 'color 0.3s'
   }
 
@@ -202,7 +195,7 @@ function ServicesPage() {
   }
 
   const priceStyle = {
-    fontSize: isMobile ? '1.125rem' : '1.25rem',
+    fontSize: isMobile ? '1.125rem' : isTablet ? '1.1875rem' : '1.25rem',
     fontWeight: '700',
     color: '#FF6B35',
     marginBottom: '1rem'
@@ -212,10 +205,11 @@ function ServicesPage() {
     width: '100%',
     background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
     color: 'white',
-    padding: '0.875rem',
+    padding: isMobile ? '0.875rem' : isTablet ? '0.9375rem' : '1rem',
     borderRadius: '12px',
     border: 'none',
     fontWeight: '600',
+    fontSize: isMobile ? '0.9375rem' : isTablet ? '1rem' : '1.0625rem',
     cursor: 'pointer',
     transition: 'all 0.3s'
   }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
+import dakshVehicle from '../assets/DakshVehicle.png'
 
 function Hero({ onQuoteClick }) {
   const [isMobile, setIsMobile] = useState(false)
@@ -37,14 +38,17 @@ function Hero({ onQuoteClick }) {
 
   const badgeStyle = {
     display: 'inline-block',
-    background: colors.accentBg,
+    background: 'linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(247, 147, 30, 0.15) 100%)',
     color: '#FF6B35',
     padding: isMobile ? '0.5rem 1rem' : '0.75rem 1.5rem',
     borderRadius: '50px',
     fontSize: isMobile ? '0.75rem' : '0.875rem',
     fontWeight: '600',
     marginBottom: isMobile ? '1rem' : '2rem',
-    border: '2px solid #FFD4C4'
+    border: '2px solid rgba(255, 107, 53, 0.3)',
+    backdropFilter: 'blur(10px)',
+    boxShadow: '0 8px 32px rgba(255, 107, 53, 0.15)',
+    animation: 'pulseGlow 3s ease-in-out infinite'
   }
 
   const h1Style = {
@@ -53,15 +57,18 @@ function Hero({ onQuoteClick }) {
     color: colors.text,
     lineHeight: '1.1',
     marginBottom: isMobile ? '1rem' : '1.5rem',
-    transition: 'color 0.3s'
+    transition: 'color 0.3s',
+    textShadow: '0 2px 20px rgba(0, 0, 0, 0.1)'
   }
 
   const gradientTextStyle = {
-    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FF6B35 100%)',
+    backgroundSize: '200% auto',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
-    display: 'block'
+    display: 'block',
+    animation: 'textShine 3s linear infinite'
   }
 
   const pStyle = {
@@ -88,8 +95,10 @@ function Hero({ onQuoteClick }) {
     fontWeight: '600',
     fontSize: isMobile ? '0.875rem' : '1.125rem',
     cursor: 'pointer',
-    transition: 'all 0.3s',
-    boxShadow: '0 10px 30px rgba(255, 107, 53, 0.3)'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    boxShadow: '0 10px 30px rgba(255, 107, 53, 0.4), 0 0 0 0 rgba(255, 107, 53, 0.5)',
+    position: 'relative',
+    overflow: 'hidden'
   }
 
   const secondaryButtonStyle = {
@@ -144,35 +153,48 @@ function Hero({ onQuoteClick }) {
     background: colors.accentBg,
     borderRadius: '30px',
     padding: isMobile ? '2rem' : '3rem',
-    boxShadow: colors.shadow,
+    boxShadow: '0 20px 60px rgba(255, 107, 53, 0.15)',
     position: 'relative',
     zIndex: 10,
-    transition: 'all 0.3s'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: '1px solid rgba(255, 107, 53, 0.1)',
+    backdropFilter: 'blur(10px)'
   }
 
-  const truckEmojiStyle = {
-    fontSize: isMobile ? '5rem' : '8rem',
-    textAlign: 'center',
-    marginBottom: isMobile ? '1rem' : '2rem'
+  const vehicleImageStyle = {
+    width: '100%',
+    maxWidth: isMobile ? '250px' : '400px',
+    height: 'auto',
+    marginBottom: isMobile ? '1.5rem' : '2rem',
+    filter: 'drop-shadow(0 15px 35px rgba(255, 107, 53, 0.25))',
+    transition: 'all 0.3s ease'
   }
 
   const featureCardStyle = {
     background: colors.cardBg,
     borderRadius: '20px',
     padding: isMobile ? '1rem' : '1.5rem',
-    boxShadow: colors.shadow,
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
     marginBottom: '1rem',
-    transition: 'all 0.3s'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    animation: 'fadeInUp 0.6s ease-out backwards',
+    border: '1px solid rgba(255, 107, 53, 0.1)',
+    cursor: 'pointer'
   }
 
   const iconBoxStyle = {
-    background: colors.accentBg,
+    background: 'linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%)',
     padding: '1rem',
     borderRadius: '15px',
-    fontSize: isMobile ? '1.5rem' : '2rem'
+    fontSize: isMobile ? '1.5rem' : '2rem',
+    transition: 'all 0.3s ease',
+    border: '1px solid rgba(255, 107, 53, 0.2)'
   }
 
   return (
@@ -180,30 +202,30 @@ function Hero({ onQuoteClick }) {
       <div style={containerStyle}>
         <div style={gridStyle}>
           <div>
-            <div style={badgeStyle}>
+            <div style={{...badgeStyle, animation: 'fadeInLeft 0.8s ease-out'}}>
               ⭐ Trusted by 10,000+ Happy Customers
             </div>
             
-            <h1 style={h1Style}>
+            <h1 style={{...h1Style, animation: 'fadeInLeft 0.8s ease-out 0.2s backwards'}}>
               Safe & Reliable
               <span style={gradientTextStyle}>Moving Services</span>
             </h1>
             
-            <p style={pStyle}>
+            <p style={{...pStyle, animation: 'fadeInLeft 0.8s ease-out 0.4s backwards'}}>
               Professional packing and moving solutions across India. We handle your belongings with care and deliver on time, every time.
             </p>
             
-            <div style={buttonContainerStyle}>
+            <div style={{...buttonContainerStyle, animation: 'fadeInLeft 0.8s ease-out 0.6s backwards'}}>
               <button 
                 style={primaryButtonStyle}
                 onClick={onQuoteClick}
                 onMouseEnter={(e) => {
-                  e.target.style.transform = 'scale(1.05)'
-                  e.target.style.boxShadow = '0 15px 40px rgba(255, 107, 53, 0.4)'
+                  e.target.style.transform = 'translateY(-3px) scale(1.05)'
+                  e.target.style.boxShadow = '0 20px 50px rgba(255, 107, 53, 0.5), 0 0 0 8px rgba(255, 107, 53, 0.1)'
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.transform = 'scale(1)'
-                  e.target.style.boxShadow = '0 10px 30px rgba(255, 107, 53, 0.3)'
+                  e.target.style.transform = 'translateY(0) scale(1)'
+                  e.target.style.boxShadow = '0 10px 30px rgba(255, 107, 53, 0.4), 0 0 0 0 rgba(255, 107, 53, 0.5)'
                 }}
               >
                 Get Free Quote →
@@ -224,7 +246,7 @@ function Hero({ onQuoteClick }) {
               </a>
             </div>
 
-            <div style={statsContainerStyle}>
+            <div style={{...statsContainerStyle, animation: 'fadeInUp 0.8s ease-out 0.8s backwards'}}>
               <div style={statStyle}>
                 <div style={statNumberStyle}>10+</div>
                 <div style={statLabelStyle}>Years Experience</div>
@@ -240,10 +262,36 @@ function Hero({ onQuoteClick }) {
             </div>
           </div>
 
-          <div style={imageContainerStyle}>
-            <div style={mainCardStyle}>
-              <div style={truckEmojiStyle}>🚚</div>
-              <div style={featureCardStyle}>
+          <div style={{...imageContainerStyle, animation: 'fadeInRight 0.8s ease-out 0.4s backwards'}}>
+            <div 
+              style={mainCardStyle}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-10px)'
+                e.currentTarget.style.boxShadow = '0 30px 80px rgba(255, 107, 53, 0.25)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 20px 60px rgba(255, 107, 53, 0.15)'
+              }}
+            >
+              <img 
+                src={dakshVehicle} 
+                alt="Daksh Cargo Vehicle" 
+                style={{...vehicleImageStyle, animation: 'floatSlow 4s ease-in-out infinite'}}
+              />
+              <div 
+                style={{...featureCardStyle, animationDelay: '0.8s'}}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateX(10px)'
+                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 107, 53, 0.2)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.3)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateX(0)'
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.1)'
+                }}
+              >
                 <div style={iconBoxStyle}>📦</div>
                 <div>
                   <div style={{fontWeight: '600', color: colors.text, transition: 'color 0.3s'}}>
@@ -254,7 +302,19 @@ function Hero({ onQuoteClick }) {
                   </div>
                 </div>
               </div>
-              <div style={featureCardStyle}>
+              <div 
+                style={{...featureCardStyle, animationDelay: '1s'}}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateX(10px)'
+                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 107, 53, 0.2)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.3)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateX(0)'
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.1)'
+                }}
+              >
                 <div style={iconBoxStyle}>🛡️</div>
                 <div>
                   <div style={{fontWeight: '600', color: colors.text, transition: 'color 0.3s'}}>
